@@ -21,13 +21,13 @@ class Vendedor (models.Model):
     def __str__(self):
         return self.nombre
 
-class Producto(models.model):
+class Producto(models.Model):
     id_producto = models.BigIntegerField(999,primary_key=True)
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
     precio = models.DecimalField(max_digits=8, decimal_places=2)
     cantidad = models.IntegerField()
-    imagen = models.ImageField(upload_to='productos')
+    #imagen = models.ImageField(upload_to='productos')
     def __str__(self):
         return self.nombre
 
@@ -45,7 +45,7 @@ class Bodega(models.Model):
         return self.cantidad
 
 class Sede(models.Model):
-    direccion = models.CharField(200)
+    direccion = models.CharField(max_length=200)
     numero_telefono = models.BigIntegerField(9)
     def __str__(self):
         return self.direccion
@@ -76,11 +76,11 @@ class Bodeguero(models.Model):
     def __str__(self):
         return self.nombre
 
-class Pago(models.model):
+class Pago(models.Model):
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
     #confirmado = models.BooleanField(default=False)
     fecha = models.DateTimeField(auto_now_add=True)
-    metodo_pago = models.DecimalField(max_length=20, choices=(('TARJETA','Tarjeta de crédito'),('TRANSFERENCIA','Transferencia')),default='TARJETA')
+    metodo_pago = models.CharField(max_length=20, choices=(('TARJETA','Tarjeta de crédito'),('TRANSFERENCIA','Transferencia')),default='TARJETA')
     monto = models.DecimalField(max_digits=8, decimal_places=2)
     def __str__(self):
         return self.pedido
